@@ -314,13 +314,11 @@ def pregunta_12():
     """
 
 
-    tj=pd.DataFrame(tbl2);tj
-    tjj= (tj['_c5a'][1]+str(tj['_c5b'][1]))
-    
-    #print ("{}:{}".format(tj['_c5a'][1],str(tj['_c5b'][1])))
+    x = tbl2.copy()
+    x['_c5'] = x['_c5a'] + ':' + x['_c5b'].astype(str)
+    x = x.groupby('_c0').agg({'_c5':lambda x: ','.join(sorted(list(x.astype(str))))}).reset_index()
+    return x
    
-
-    return
 
 
 def pregunta_13():
