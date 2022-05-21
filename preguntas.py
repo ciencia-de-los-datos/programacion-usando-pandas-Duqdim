@@ -9,6 +9,7 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 """
 
 from itertools import groupby
+from ntpath import join
 import pandas as pd
 import numpy as np
 
@@ -222,34 +223,10 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    import string
-    fr=[]
-    ff=[]
-    p=[]
-    l=pd.DataFrame
-    df=pd.DataFrame(tbl0)
-    columnas=df['_c1']
-    colum= df['_c2']
-    for i in columnas:
-        lk=i
-        fr.append(lk)
-    groups=fr
-    maa=sorted(set(groups))
-    for j in maa:
-        ff=[]
-        for i in range(len(columnas)):
-            if columnas[i]==j:
-                b=colum[i]
-                ff.append(b)
-        p.append(t)
-        ii=list(p)
-        
-    tg={'_c0':maa,'_c1':ii}
-    l=pd.DataFrame(tg)
-        
-           # "".join([str(_) for _ in a])
+    tbl0=pd.read_csv("tbl0.tsv", sep="\t")
+    dta= tbl0.groupby(['_c1']).agg({'_c2':lambda x:":".join(map(str,sorted(list(x))))})
             
-    return(l)
+    return(dta)
 
 
 def pregunta_11():
@@ -271,7 +248,7 @@ def pregunta_11():
     fr=[]
     ff=[]
     p=[]
-    l=pd.DataFrame()
+    #l=pd.DataFrame()
     df=pd.DataFrame(tbl1)
     columnas=df['_c0']
     colum= df['_c4']
@@ -287,8 +264,8 @@ def pregunta_11():
                 b=colum[i]
                 ff.append(b)
         p.append(tuple(ff))
-        tg={'_c0':maa,'_c1':p}
-        ll=pd.DataFrame(tg);ll
+        tg={'_c0':maa,'_c4':p}
+        ll=pd.DataFrame(tg)
          
 
     return(ll)
