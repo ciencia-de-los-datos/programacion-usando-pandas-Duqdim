@@ -9,8 +9,6 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 """
 
 from itertools import groupby
-from ntpath import join
-from turtle import left, right
 import pandas as pd
 import numpy as np
 
