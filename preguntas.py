@@ -10,6 +10,7 @@ Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preg
 
 from itertools import groupby
 from ntpath import join
+from turtle import left, right
 import pandas as pd
 import numpy as np
 
@@ -245,28 +246,8 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    fr=[]
-    ff=[]
-    p=[]
-    #l=pd.DataFrame()
-    df=pd.DataFrame(tbl1)
-    columnas=df['_c0']
-    colum= df['_c4']
-    for i in columnas:
-        lk=i
-        fr.append(lk)
-    groups=fr
-    maa=sorted(set(groups))
-    for j in maa:
-        ff=[]
-        for i in range(len(columnas)):
-            if columnas[i]==j:
-                b=colum[i]
-                ff.append(b)
-        p.append(tuple(ff))
-        tg={'_c0':maa,'_c4':p}
-        ll=pd.DataFrame(tg)
-         
+    import pandas as pd
+    ll= tbl1.groupby(['_c0']).agg({'_c4':lambda x: ",".join(sorted(list(x)))}).reset_index()
 
     return(ll)
 
@@ -309,19 +290,10 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    sumas=[]
+    
     df=pd.DataFrame(tbl0)
     dg=pd.DataFrame(tbl2)
-    gt=df.columns.values
-    gy=dg.columns.values
-    gg= {gt[0]:df['_c0'],'_c00':dg['_c0'],gt[1]:df['_c1'],gy[2]:dg['_c5b']}
-    rr=pd.DataFrame(gg)
-    tt=sorted(set(df['_c0']))
-    for x in tt:
-        suma=0
-        for i in range(len(rr['_c00'])):
-            if rr['_c00'][i]==x:
-                suma += int(rr['_c5b'][i])      
-        sumas.append(suma)
-    maa=df.groupby(groups)['_c2'].sum()
-    return
+    
+    h= pd.merge(tbl0,tbl2,left_on='_c0',right_on='_c0')
+    s=h.groupby('_c1')['_c5b'].sum()
+    return (s)
